@@ -14,23 +14,13 @@ RUN apt-get update &&  \
 	flask/bin/pip install flask-wtf==0.8.4 && \
 	flask/bin/pip install pytz==2013b && \
 	flask/bin/pip install flask-babel==0.8 && \
-	flask/bin/pip install flup && mkdir app  && \
-	mkdir app/static && \
-	mkdir app/templates && \
-	cd app 
-	
-RUN 	echo "from flask import Flask
-		  app = Flask(__name__)
-		  from app import views" > __init__.py && \
-	echo 'from app import app
-		  @app.route('/')
-		  @app.route('/index')
-		  def index():
-		  	return "Hello, World!"'	> views.py && \
-	cd .. && \
-	echo "#!flask/bin/python
-		  from app import app
-		  app.run(debug = True)" > run.py && \
-	chmod a+x run.py && \
+	flask/bin/pip install flup && \
+	mkdir app  
+
+ADD __init__.py ./app
+ADD views.py ./app
+ADD run.py .
+
+RUN chmod a+x run.py && \
 CMD	./run.py 
 EXPOSE 5000
