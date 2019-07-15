@@ -1,22 +1,25 @@
 #!groovy
+
 properties([disableConcurrentBuilds()])
 
 pipeline {
-	agent {
-		label 'master'
-	}
-	options {
-		buildDiscarder(logRotator(numToKeepStr:'10', artifactNumToKeepStr:'10'))
-		timestamps()
-	}
-	stages {
-		stage("create docker image") {
-			steps{
-				echo "=================== start building image ==================="
-				dir ('Project_DevOps/docker1/'){
-						sh 'docker build . '
-				}
-			}
-		}
-	}
+    agent { 
+        label 'master'
+        }
+    triggers { pollSCM('* * * * *') }
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
+        timestamps()
+    }
+    stages {
+        stage("create docker image") {
+            steps {
+                echo " ============== start building image =================="
+                dir ('docker1') {
+                	sh 'docker build . '
+                }
+            }
+        }
+       
+    }
 }
