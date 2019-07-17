@@ -10,7 +10,7 @@ RUN mkdir app
 
 ADD __init__.py ./app
 ADD views.py ./app
-ADD run.py
+ADD run.py .
 RUN export FLASK_APP=run.py
 RUN flask run
 EXPOSE 5000
