@@ -1,8 +1,9 @@
 FROM ubuntu
 
-RUN apt-get update &&  \
-	apt-get install -y virtualenv && \
-	virtualenv flask &&  \
+RUN apt update &&  \
+	apt install python3 && \
+	apt install -y virtualenv && \
+	virtualenv --python=$(which python3) flask &&  \
 	flask/bin/pip install flask==0.9 && \
 	flask/bin/pip install flask-login && \
 	flask/bin/pip install flask-openid && \
@@ -16,7 +17,7 @@ RUN apt-get update &&  \
 	flask/bin/pip install flask-babel==0.8 && \
 	flask/bin/pip install flup && \
 	mkdir app  
-
+	
 ADD __init__.py ./app
 ADD views.py ./app
 ADD run.py .
