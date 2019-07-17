@@ -16,7 +16,7 @@ pipeline {
             steps {
                 echo " ============== start building image =================="
                 sh "ls -la ${pwd()}"
-                dir ('docker1') {
+                dir ('docker') {
                 	sh 'docker build . '
                 }
             }
