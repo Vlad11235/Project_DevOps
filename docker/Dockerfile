@@ -1,7 +1,7 @@
 FROM ubuntu
 
 RUN apt update &&  \
-	apt install python3 && \
+	apt install -y python3 && \
 	apt install -y virtualenv && \
 	virtualenv --python=$(which python3) flask &&  \
 	flask/bin/pip install flask==0.9 && \
